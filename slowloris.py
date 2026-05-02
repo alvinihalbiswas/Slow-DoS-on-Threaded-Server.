@@ -5,6 +5,86 @@ import random
 import socket
 import sys
 import time
+from platform import node, system, release; Node, System, Release = node(), system(), release()
+from threading import Thread, active_count
+from time import *
+import subprocess
+import re
+import csv
+import os
+import time
+import shutil
+from datetime import datetime
+
+
+active_wireless_networks = []
+
+
+def check_for_essid(essid, lst):
+    check_status = True
+
+    if len(lst) == 0:
+        return check_status
+
+    for item in lst:
+        if essid in item["ESSID"]:
+            check_status = False
+
+    return check_status
+
+
+if not 'SUDO_UID' in os.environ.keys():
+    print("Try running this program with sudo.")
+    exit()
+
+Node, System, Release = node(), system(), release()
+
+# ANSI‑safe slow print
+def printLow(Str, delay=0.01):
+    ansi_escape = re.compile(r'\033\[[0-9;]*m')
+    i = 0
+    while i < len(Str):
+        # detect ANSI codes and print them instantly
+        m = ansi_escape.match(Str, i)
+        if m:
+            seq = m.group()
+            sys.stdout.write(seq)
+            sys.stdout.flush()
+            i += len(seq)
+            continue
+        # print normal character slowly
+        sys.stdout.write(Str[i])
+        sys.stdout.flush()
+        i += 1
+        time.sleep(delay)
+    print()
+
+
+# Colors
+r = '\033[1;31m'
+g = '\033[32;1m'
+y = '\033[1;33m'
+w = '\033[1;37m'
+
+printLow(f'''
+\033[37m █████╗ ████████╗██╗      █████╗ ███╗   ██╗████████╗██╗███████╗
+██╔══██╗╚══██╔══╝██║     ██╔══██╗████╗  ██║╚══██╔══╝██║██╔════╝\033[0m
+\033[31m███████║   ██║   ██║     ███████║██╔██╗ ██║   ██║   ██║███████╗
+██╔══██║   ██║   ██║     ██╔══██║██║╚██╗██║   ██║   ██║╚════██║\033[0m
+\033[33m██║  ██║   ██║   ███████╗██║  ██║██║ ╚████║   ██║   ██║███████║
+╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝╚══════╝\033[0m
+
+{y}Info:
+    {g}[+] {y}Linkedin: {w}https://wwww.linkedin.com/in/alvi-nihal-biswas/
+    {g}[+] {y}Github: {w}https://github.com/alvinihalbiswas
+
+{y}system:
+    {g}[+] {y}Platform: {w}{System}
+    {g}[+] {y}Node: {w}{Node}
+    {g}[+] {y}Release: {w}{Release}
+
+''')
+
 
 parser = argparse.ArgumentParser(
     description="Slowloris, low bandwidth stress test tool for websites"
