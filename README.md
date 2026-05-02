@@ -9,19 +9,6 @@ Slowloris is basically an HTTP Denial of Service attack that affects threaded se
 
 This exhausts the servers thread pool and the server can't reply to other people.
 
-## Citation
-
-If you found this work useful, please cite it as
-
-```bibtex
-@article{gkbrkslowloris,
-  title = "Slowloris",
-  author = "Gokberk Yaltirakli",
-  journal = "github.com",
-  year = "2015",
-  url = "https://github.com/gkbrk/slowloris"
-}
-```
 
 ## How to install and run?
 
@@ -65,6 +52,3 @@ arguments. In order to get an up-to-date help document, just run
 * * Use HTTPS for the requests
 * --sleeptime
 * * Time to sleep between each header sent
-
-## License
-The code is licensed under the MIT License.
